@@ -29,6 +29,20 @@ class ArvoreBinaria:
             else:
                 self.inserir_em_nivel_recursivo(valor, no.direita)
 
+# Q3
+    def verificar_valor(self, valor):
+        return self._verificar_valor(self.raiz, valor)
+
+    def _verificar_valor(self, no, valor):
+        if no is None:
+            return False
+        if no.valor == valor:
+            return True
+        return (
+            self._verificar_valor(no.esquerda, valor) or
+            self._verificar_valor(no.direita, valor)
+        )
+
 
 # Testes das Questões
 arvore = ArvoreBinaria()
@@ -39,3 +53,9 @@ arvore.inserir_em_nivel(2)
 arvore.inserir_em_nivel(4)
 arvore.inserir_em_nivel(6)
 arvore.inserir_em_nivel(8)
+
+busca_valor = 4
+if arvore.verificar_valor(busca_valor):
+    print(f"O número {busca_valor} está presente na árvore.")
+else:
+    print(f"O número {busca_valor} não está presente na árvore.")
