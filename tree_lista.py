@@ -54,6 +54,63 @@ class ArvoreBinaria:
         altura_direita = self._calcular_altura(no.direita)
         return max(altura_esquerda, altura_direita) + 1
 
+# Q5
+    def inordem(self):
+        return self._inordem(self.raiz)
+
+    def _inordem(self, no):
+        if no is None:
+            return []
+        resultado = []
+        resultado += self._inordem(no.esquerda)
+        resultado.append(no.valor)
+        resultado += self._inordem(no.direita)
+        return resultado
+
+# Q6
+    def preordem(self):
+        return self._preordem(self.raiz)
+
+    def _preordem(self, no):
+        if no is None:
+            return []
+        resultado = []
+        resultado.append(no.valor)
+        resultado += self._preordem(no.esquerda)
+        resultado += self._preordem(no.direita)
+        return resultado
+
+# Q7
+    def posordem(self):
+        return self._posordem(self.raiz)
+
+    def _posordem(self, no):
+        if no is None:
+            return []
+        resultado = []
+        resultado += self._posordem(no.esquerda)
+        resultado += self._posordem(no.direita)
+        resultado.append(no.valor)
+        return resultado
+
+# Q8
+    def em_niveis(self):
+        altura = self.calcular_altura()
+        resultado = []
+        for nivel in range(1, altura + 1):
+            self._em_niveis(self.raiz, nivel, resultado)
+        return resultado
+
+    def _em_niveis(self, no, nivel, resultado):
+        if no is None:
+            return
+        if nivel == 1:
+            resultado.append(no.valor)
+        elif nivel > 1:
+            self._em_niveis(no.esquerda, nivel - 1, resultado)
+            self._em_niveis(no.direita, nivel - 1, resultado)
+
+
 # Testes das Questões
 arvore = ArvoreBinaria()
 arvore.inserir_em_nivel(5)
@@ -72,3 +129,15 @@ else:
 
 altura = arvore.calcular_altura()
 print(f"Altura da árvore: {altura}")
+
+inordem = arvore.inordem()
+print("\nPercorrer In-ordem:", inordem)
+
+preordem = arvore.preordem()
+print("Percorrer Pré-ordem:", preordem)
+
+posordem = arvore.posordem()
+print("Percorrer Pós-ordem:", posordem)
+
+em_niveis = arvore.em_niveis()
+print("Percorrer em Níveis:", em_niveis)
