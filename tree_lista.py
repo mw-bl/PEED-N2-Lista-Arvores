@@ -43,6 +43,16 @@ class ArvoreBinaria:
             self._verificar_valor(no.direita, valor)
         )
 
+# Q4
+    def calcular_altura(self):
+        return self._calcular_altura(self.raiz)
+
+    def _calcular_altura(self, no):
+        if no is None:
+            return 0
+        altura_esquerda = self._calcular_altura(no.esquerda)
+        altura_direita = self._calcular_altura(no.direita)
+        return max(altura_esquerda, altura_direita) + 1
 
 # Testes das Questões
 arvore = ArvoreBinaria()
@@ -59,3 +69,6 @@ if arvore.verificar_valor(busca_valor):
     print(f"O número {busca_valor} está presente na árvore.")
 else:
     print(f"O número {busca_valor} não está presente na árvore.")
+
+altura = arvore.calcular_altura()
+print(f"Altura da árvore: {altura}")
