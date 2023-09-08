@@ -146,6 +146,23 @@ class ArvoreBinaria:
             self._verificar_arvore_de_busca(no.esquerda, limite_min, no.valor) and
             self._verificar_arvore_de_busca(no.direita, no.valor, limite_max)
         )
+
+#Q13
+    def nos_no_nivel(self, nivel_desejado):
+        return self._nos_no_nivel(self.raiz, 1, nivel_desejado)
+
+    def _nos_no_nivel(self, no, nivel_atual, nivel_desejado, resultado=[]):
+        if no is None:
+            return []
+
+        if nivel_atual == nivel_desejado:
+            resultado.append(no.valor)
+
+        if nivel_atual < nivel_desejado:
+            self._nos_no_nivel(no.esquerda, nivel_atual + 1, nivel_desejado, resultado)
+            self._nos_no_nivel(no.direita, nivel_atual + 1, nivel_desejado, resultado)
+
+        return resultado
         
 # Testes das Questões
 arvore = ArvoreBinaria()
@@ -189,3 +206,7 @@ if eh_valida:
     print("A árvore é uma árvore de busca válida.")
 else:
     print("A árvore não é uma árvore de busca válida.")
+
+nivel_desejado = 2
+nos_nivel = arvore.nos_no_nivel(nivel_desejado)
+print(f"Nós no nível {nivel_desejado}: {nos_nivel}")
