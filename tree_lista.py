@@ -120,7 +120,33 @@ class ArvoreBinaria:
 
         return 1 + self._contar_nos(no.esquerda) + self._contar_nos(no.direita)
 
+# Q10
+    def encontrar_valor_maximo(self):
+        if self.raiz is None:
+            return None
+        return self._encontrar_valor_maximo(self.raiz)
 
+    def _encontrar_valor_maximo(self, no):
+        while no.direita is not None:
+            no = no.direita
+        return no.valor
+
+# Q11  
+    def verificar_arvore_de_busca(self):
+        return self._verificar_arvore_de_busca(self.raiz, None, None)
+
+    def _verificar_arvore_de_busca(self, no, limite_min, limite_max):
+        if no is None:
+            return True
+
+        if (limite_min is not None and no.valor <= limite_min) or (limite_max is not None and no.valor >= limite_max):
+            return False
+
+        return (
+            self._verificar_arvore_de_busca(no.esquerda, limite_min, no.valor) and
+            self._verificar_arvore_de_busca(no.direita, no.valor, limite_max)
+        )
+        
 # Testes das Questões
 arvore = ArvoreBinaria()
 arvore.inserir_em_nivel(5)
@@ -154,3 +180,12 @@ print("Percorrer em Níveis:", em_niveis)
 
 total_nos = arvore.contar_nos()
 print("\nNúmero total de nós na árvore:", total_nos)
+
+maximo = arvore.encontrar_valor_maximo()
+print("Valor máximo na árvore:", maximo)
+
+eh_valida = arvore.verificar_arvore_de_busca()
+if eh_valida:
+    print("A árvore é uma árvore de busca válida.")
+else:
+    print("A árvore não é uma árvore de busca válida.")
