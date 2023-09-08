@@ -147,7 +147,7 @@ class ArvoreBinaria:
             self._verificar_arvore_de_busca(no.direita, no.valor, limite_max)
         )
 
-#Q13
+# Q13
     def nos_no_nivel(self, nivel_desejado):
         return self._nos_no_nivel(self.raiz, 1, nivel_desejado)
 
@@ -163,6 +163,27 @@ class ArvoreBinaria:
             self._nos_no_nivel(no.direita, nivel_atual + 1, nivel_desejado, resultado)
 
         return resultado
+
+# Q14
+    def caminho_ate_no(self, valor):
+        return self._caminho_ate_no(self.raiz, valor)
+
+    def _caminho_ate_no(self, no, valor, caminho_atual=[]):
+        if no is None:
+            return []
+
+        caminho_atual.append(no.valor)
+
+        if no.valor == valor:
+            return caminho_atual.copy()
+
+        caminho_esquerda = self._caminho_ate_no(no.esquerda, valor, caminho_atual.copy())
+        caminho_direita = self._caminho_ate_no(no.direita, valor, caminho_atual.copy())
+
+        if not caminho_esquerda and not caminho_direita:
+            return []
+
+        return caminho_esquerda if caminho_esquerda else caminho_direita
         
 # Testes das Questões
 arvore = ArvoreBinaria()
@@ -210,3 +231,10 @@ else:
 nivel_desejado = 2
 nos_nivel = arvore.nos_no_nivel(nivel_desejado)
 print(f"Nós no nível {nivel_desejado}: {nos_nivel}")
+
+no_alvo = 4
+caminho = arvore.caminho_ate_no(no_alvo)
+if caminho:
+    print(f"Caminho até o nó {no_alvo}: {caminho}")
+else:
+    print(f"Nó {no_alvo} não encontrado na árvore.")
