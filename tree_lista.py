@@ -110,6 +110,16 @@ class ArvoreBinaria:
             self._em_niveis(no.esquerda, nivel - 1, resultado)
             self._em_niveis(no.direita, nivel - 1, resultado)
 
+# Q9
+    def contar_nos(self):
+        return self._contar_nos(self.raiz)
+
+    def _contar_nos(self, no):
+        if no is None:
+            return 0
+
+        return 1 + self._contar_nos(no.esquerda) + self._contar_nos(no.direita)
+
 
 # Testes das Questões
 arvore = ArvoreBinaria()
@@ -141,3 +151,6 @@ print("Percorrer Pós-ordem:", posordem)
 
 em_niveis = arvore.em_niveis()
 print("Percorrer em Níveis:", em_niveis)
+
+total_nos = arvore.contar_nos()
+print("\nNúmero total de nós na árvore:", total_nos)
