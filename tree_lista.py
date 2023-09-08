@@ -184,7 +184,18 @@ class ArvoreBinaria:
             return []
 
         return caminho_esquerda if caminho_esquerda else caminho_direita
-        
+
+# Q15
+    def nos_filhos(self, no_pai):
+        nos_filhos = []
+        if no_pai is not None:
+            if no_pai.esquerda is not None:
+                nos_filhos.append(no_pai.esquerda)
+            if no_pai.direita is not None:
+                nos_filhos.append(no_pai.direita)
+        return nos_filhos
+
+
 # Testes das Questões
 arvore = ArvoreBinaria()
 arvore.inserir_em_nivel(5)
@@ -238,3 +249,12 @@ if caminho:
     print(f"Caminho até o nó {no_alvo}: {caminho}")
 else:
     print(f"Nó {no_alvo} não encontrado na árvore.")
+
+no_raiz = arvore.raiz
+nos_filhos_raiz = arvore.nos_filhos(no_raiz)
+
+if nos_filhos_raiz:
+    valores_nos_filhos = [no.valor for no in nos_filhos_raiz]
+    print(f"Nós filhos do nó {no_raiz.valor}: {valores_nos_filhos}")
+else:
+    print(f"Nó {no_raiz.valor} não tem filhos na árvore.")
